@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 import bcrypt from 'bcrypt'
 import JWT from 'jsonwebtoken'
-import cookie from 'cookie'
 const userSchema = new mongoose.Schema({
     username:{
         type:String,
@@ -36,7 +35,8 @@ userSchema.methods.getSignedToken = function(res){
     
     res.cookie('refreshToken', refreshToken, {
     maxAge: 86400 * 14000, // milliseconds
-    httpOnly: true // frontend will not be able to access this token
+    httpOnly: true, // frontend will not be able to access this token
+    secure:true
     });
     return accessToken;
 }
